@@ -110,10 +110,7 @@ public class view extends JFrame implements ActionListener,MouseListener {
             g.fillRect(40*pathY, 40*pathX, 40, 40);
         }
         
-        int pathX= path.get(pathIdx);
-        int pathY= path.get(pathIdx+1);
-        g.setColor(Color.RED);
-        g.fillOval(40*pathX, 40*pathY, 30, 30);
+        
     }
     @Override
     public void processKeyEvent(KeyEvent key){
@@ -147,10 +144,10 @@ public class view extends JFrame implements ActionListener,MouseListener {
         }
         if(e.getSource()==clearButton){
             path.clear();
-            for(int row=0; row<maze.length; row++){
-                for(int col=0; col<maze[0].length; col++){
-                    if(maze[row][col]==2){
-                        maze[row][col]=0;
+            for (int[] maze1 : maze) {
+                for (int col = 0; col<maze[0].length; col++) {
+                    if (maze1[col] == 2) {
+                        maze1[col] = 0;
                     }
                 }
             }
@@ -158,13 +155,14 @@ public class view extends JFrame implements ActionListener,MouseListener {
         }
     }
     public void mouseClicked(MouseEvent e){
-        if(e.getX()>=0 && e.getX()<=maze[0].length*40 && e.getY()<=maze.length*40){
-            int row= e.getY()/40;
-            int col= e.getX()/40;
+        if(e.getX()>=0 && e.getX()<=maze[0].length*40 && e.getY()>=0 && e.getY()<=maze.length*40){
+            int row = e.getY()/40;
+            int col = e.getX()/40;
             
-            if(maze[row][col]==1) return;
-            
-            Graphics g= getGraphics();
+            if(maze[row][col]==1){
+                return;
+            }
+            Graphics g = getGraphics();
             g.setColor(Color.WHITE);
             g.fillRect(40*target[1], 40*target[0], 40, 40);
             g.setColor(Color.red);
